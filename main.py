@@ -1,7 +1,7 @@
 import pygame
 
 
-def draw_maze(maze, screen, screen_width, screen_height):
+def drawMaze(maze, screen, screen_width, screen_height):
     block_size = 25
 
 
@@ -12,13 +12,16 @@ def draw_maze(maze, screen, screen_width, screen_height):
                 pygame.draw.rect(screen, (255, 255, 255), (col * block_size, row * block_size, block_size, block_size))
             elif maze[row][col] == 2:
                 pygame.draw.rect(screen, (0, 0, 255), (col * block_size, row * block_size, block_size, block_size))
+            elif maze[row][col] == 3:
+                pygame.draw.rect(screen, (0, 255, 0), (col * block_size, row * block_size, block_size, block_size))
             else:
                 pygame.draw.rect(screen, (0, 0, 0), (col * block_size, row * block_size, block_size, block_size))
 
+    #actualiza
     pygame.display.flip()
 
 
-def start_game():
+def startGame():
     screen_width = 800
     screen_height = 600
 
@@ -39,32 +42,32 @@ def start_game():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_w:
+                if event.key == pygame.K_w or event.key == pygame.K_UP:
                     if(y > 0):
                         if(maze[y-1][x] != 0):
                             maze[y][x] = 1
                             y -= 1
                             maze[y][x] = 2
-                if event.key == pygame.K_s:
+                if event.key == pygame.K_s or event.key == pygame.K_DOWN:
                     if(maze[y+1][x] != 0):
                         maze[y][x] = 1
                         y += 1
                         maze[y][x] = 2
-                if event.key == pygame.K_d:
+                if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
                     if (maze[y][x + 1] != 0):
                         maze[y][x] = 1
                         x += 1
                         maze[y][x] = 2
-                if event.key == pygame.K_a:
+                if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                     if (maze[y][x - 1] != 0):
                         maze[y][x] = 1
                         x -= 1
                         maze[y][x] = 2
-        draw_maze(maze, screen, screen_width, screen_height)
+        drawMaze(maze, screen, screen_width, screen_height)
         if(maze[19][28] == 2):
             running = False
 
     pygame.quit()
 
 
-start_game()
+startGame()
