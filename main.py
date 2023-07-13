@@ -41,34 +41,54 @@ def start_game():
                 running = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w or event.key == pygame.K_UP:
-                    if global_y > 0:
-                        if maze[global_y - 1][global_x] != 0:
-                            maze[global_y][global_x] = 1
-                            global_y -= 1
-                            maze[global_y][global_x] = 2
+                    move_up(maze)
                 if event.key == pygame.K_s or event.key == pygame.K_DOWN:
-                    if global_y < len(maze) - 1:
-                        if maze[global_y + 1][global_x] != 0:
-                            maze[global_y][global_x] = 1
-                            global_y += 1
-                            maze[global_y][global_x] = 2
+                    move_down(maze)
                 if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                    if global_x < len(maze[0]) - 1:
-                        if maze[global_y][global_x + 1] != 0:
-                            maze[global_y][global_x] = 1
-                            global_x += 1
-                            maze[global_y][global_x] = 2
+                    move_right(maze)
                 if event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                    if global_x > 0:
-                        if maze[global_y][global_x - 1] != 0:
-                            maze[global_y][global_x] = 1
-                            global_x -= 1
-                            maze[global_y][global_x] = 2
+                    move_left(maze)
         draw_maze(maze, screen, screen_width, screen_height)
         if maze[19][28] == 2:
             running = False
 
     pygame.quit()
+
+
+def move_up(maze):
+    global global_x, global_y
+    if global_y > 0 and maze[global_y - 1][global_x] != 0:
+        maze[global_y][global_x] = 1
+        global_y -= 1
+        maze[global_y][global_x] = 2
+    return maze
+
+
+def move_down(maze):
+    global global_x, global_y
+    if global_y < len(maze) - 1 and maze[global_y + 1][global_x] != 0:
+        maze[global_y][global_x] = 1
+        global_y += 1
+        maze[global_y][global_x] = 2
+    return maze
+
+
+def move_right(maze):
+    global global_x, global_y
+    if global_x < len(maze[0]) - 1 and maze[global_y][global_x + 1] != 0:
+        maze[global_y][global_x] = 1
+        global_x += 1
+        maze[global_y][global_x] = 2
+    return maze
+
+
+def move_left(maze):
+    global global_x, global_y
+    if global_x > 0 and maze[global_y][global_x - 1] != 0:
+        maze[global_y][global_x] = 1
+        global_x -= 1
+        maze[global_y][global_x] = 2
+    return maze
 
 
 start_game()
