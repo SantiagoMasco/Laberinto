@@ -39,8 +39,15 @@ def start_game():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-        #cada 0.3 segundos se genera un numero random del 1 al 4. Ese numero llama a las funciones move_down si es 1, move_up si es 2, move_right si es 3, move_left si es 4.
-
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_w or event.key == pygame.K_UP:
+                    move_up(maze)
+                if event.key == pygame.K_s or event.key == pygame.K_DOWN:
+                    move_down(maze)
+                if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
+                    move_right(maze)
+                if event.key == pygame.K_a or event.key == pygame.K_LEFT:
+                    move_left(maze)
         draw_maze(maze, screen, screen_width, screen_height)
         if maze[19][28] == 2:
             running = False
